@@ -41,3 +41,30 @@ export function deleteTodo(userid, todoid) {
 		todos.splice(index, 1);
 	}
 }
+
+export function updateTodo(userid, todoid, newDescription) {
+    if (newDescription === '') {
+        throw new Error('description cannot be empty');
+    }
+    const todos = db.get(userid);
+    if (!todos) {
+        throw new Error('user not found');
+    }
+    const updatedTodos = todos.map(t => 
+        t.id === todoid ? { ...t, description: newDescription } : t
+    );
+    db.set(userid, updatedTodos);
+}
+
+export function toggleTodo(userid, todoid) {
+    const todos = db.get(userid);
+    
+    if (!todos) {
+        throw new Error('user not found');
+    }
+    const updatedTodos = todos.map(todo => 
+        todo.id === todoid ? { ...todo, done: !todo.done } : todo
+    );
+    
+    db.set(userid, updatedTodos);
+}
