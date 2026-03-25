@@ -7,17 +7,20 @@
 	let editingId = $state(null);
 
 	function handleSubmit() {
-		return async ({ result }) => {
+		return async ({ result, update }) => {
 			console.log(result);
 			if (result.type === 'success') {
 				editingId = null;
 			}
+			update();
 		};
 	}
 </script>
 
+<div>{JSON.stringify(form)}
+	{JSON.stringify(data)}</div>
 <div class="mx-auto max-w-xs">
-	<h1 class="text-2xl font-bold">todos</h1>
+	<h1 class="text-2xl font-bold">todo list</h1>
 	<form method="POST" action="?/create" use:enhance>
 		<label class="text-sm font-medium text-gray-700">
 			Добавить todo:
@@ -49,7 +52,7 @@
 			{:else}
 				<div class="flex items-center justify-between border rounded p-2 my-2">
 					<div class="flex items-center gap-2">
-						<form method="POST" action="?/toggle" class="inline">
+						<form method="POST" action="?/toggle" use:enhance>
 							<input type="hidden" name="id" value={todo.id} />
 							<button 
 								type="submit" 
@@ -83,7 +86,7 @@
 						>
 							Edit
 						</button>
-						<form method="POST" action="?/delete" class="inline">
+						<form method="POST" action="?/delete" use:enhance>
 							<input type="hidden" name="id" value={todo.id} />
 							<button type="submit" class="bg-red-500 text-white px-3 py-1 rounded text-sm">X</button>
 						</form>

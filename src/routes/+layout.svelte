@@ -8,7 +8,7 @@
 		{ addr: '/', text: 'home', exact: true },
 		{ addr: '/blog', text: 'blog', exact: true },
 		{ addr: '/groups', text: 'Список групп', exact: false },
-		{ addr: '/tododb', text: 'Работа с бд', exact: false },
+		{ addr: '/tododb', text: 'Работа с todo list', exact: false },
 		{ addr: '/demo', text: 'Авторизация Гит', exact: false }
 	];
 </script>

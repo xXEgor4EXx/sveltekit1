@@ -46,13 +46,16 @@ export function updateTodo(userid, todoid, newDescription) {
     if (newDescription === '') {
         throw new Error('description cannot be empty');
     }
+
     const todos = db.get(userid);
     if (!todos) {
         throw new Error('user not found');
     }
+
     const updatedTodos = todos.map(t => 
         t.id === todoid ? { ...t, description: newDescription } : t
     );
+	console.log("Обновленные данные", updatedTodos);
     db.set(userid, updatedTodos);
 }
 
