@@ -9,7 +9,8 @@
 		{ addr: '/blog', text: 'blog', exact: true },
 		{ addr: '/groups', text: 'Список групп', exact: false },
 		{ addr: '/tododb', text: 'Работа с todo list', exact: false },
-		{ addr: '/demo', text: 'Авторизация Гит', exact: false }
+		{ addr: '/demo', text: 'Авторизация Гит', exact: false },
+		{addr: '/todoapi', text: 'Работа с todoAPI', exact: false}
 	];
 </script>
 
