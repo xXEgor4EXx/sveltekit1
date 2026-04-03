@@ -1,11 +1,31 @@
+import { boolean } from 'better-auth';
 import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 
-export const task = sqliteTable('task', {
+// import { relations } from 'drizzle-orm';
+
+export const user = sqliteTable('user', {
 	id: text('id')
 		.primaryKey()
 		.$defaultFn(() => crypto.randomUUID()),
-	title: text('title').notNull(),
-	priority: integer('priority').notNull().default(1)
+	name: text('name'),
+	age: integer('age'),
+	sex: text('sex').$defaultFn(() => "M"),
+	phonenumber: text('phonenumber')
 });
 
-export * from './auth.schema';
+export const tododb = sqliteTable('todo', {
+	id: text('id')
+		.primaryKey()
+		.$defaultFn(() => crypto.randomUUID()),
+	description: text('description'),
+	isdone: integer('isdone', {mode: 'boolean'})
+}
+
+)
+// export const users = sqliteTable('users', {
+//     id: integer('id').primaryKey({ autoIncrement: true }),
+//     name: text('name').notNull(),
+//     email: text('email').unique().notNull(),
+//     createdAt: integer('created_at', { mode: 'timestamp' }).$defaultFn(() => new Date())
+// });
+

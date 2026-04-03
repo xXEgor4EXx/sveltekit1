@@ -1,6 +1,5 @@
 <script lang="ts">
-	import { page } from '$app/stores';
-	
+	import { page } from '$app/stores';	
 	interface Props {
 		data: {
 			groupsList: Array<{ name: string; count: number; link: string }>;
@@ -8,18 +7,11 @@
 		};
 		children?: any;
 	}
-	
 	let { data, children }: Props = $props();
-	
-	// ЕБАНАЯ КИРИЛЛИЦА – ДЕКОДИРУЕМ ТО, ЧТО В АДРЕСЕ!
 	let currentPath = $derived(decodeURIComponent($page.url.pathname));
-	
-	// АКТИВНОСТЬ "ВСЕ ГРУППЫ" – ТЕПЕРЬ РАБОТАЕТ
 	let isGroupsActive = $derived(
 		currentPath === '/groups' || currentPath.startsWith('/groups/')
 	);
-	
-	// ФУНКЦИЯ ДЛЯ ПРОВЕРКИ АКТИВНОСТИ ГРУППЫ – СРАВНИВАЕМ ДЕКОДИРОВАННОЕ
 	function isActiveGroup(link: string): boolean {
 		const decodedLink = decodeURIComponent(link);
 		return currentPath === decodedLink || currentPath === decodedLink + '/';
@@ -28,7 +20,6 @@
 
 <div class="flex min-h-screen bg-gray-900 text-white">
 	<aside class="w-80 bg-gray-800 border-r border-gray-700 p-6 overflow-y-auto">
-		<!-- КНОПКА "ВСЕ ГРУППЫ" – ГОРИТ ВЕЗДЕ ВНУТРИ /groups -->
 		<div class="mb-6">
 			<a 
 				href="/groups" 

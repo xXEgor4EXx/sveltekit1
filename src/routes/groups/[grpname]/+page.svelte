@@ -5,7 +5,6 @@
 		age: number;
 		gender: 'male' | 'female';
 	}
-
 	interface Props {
 		data: {
 			group: {
@@ -15,40 +14,28 @@
 			formatted: string;
 		};
 	}
-	
 	let { data }: Props = $props();
 	let { group, formatted } = $derived(data);
-	
-	// ФИЛЬТР ПО ПОЛУ: 'all' | 'male' | 'female'
 	let genderFilter = $state<'all' | 'male' | 'female'>('all');
-	
-	// ОТФИЛЬТРОВАННЫЙ СПИСОК СТУДЕНТОВ
 	let filteredStudents = $derived(
 		genderFilter === 'all' 
 			? group.slist 
 			: group.slist.filter(s => s.gender === genderFilter)
 	);
-	
-	// СТАТИСТИКА ДЛЯ КНОПОК
 	let maleCount = $derived(group.slist.filter(s => s.gender === 'male').length);
 	let femaleCount = $derived(group.slist.filter(s => s.gender === 'female').length);
 </script>
 
 <div class="max-w-6xl mx-auto">
-	<!-- ХЛЕБНЫЕ КРОШКИ -->
 	<div class="flex items-center gap-2 text-gray-400 mb-6">
 		<a href="/groups" class="hover:text-blue-400 transition-colors">Группы</a>
 		<span>/</span>
 		<span class="text-white font-medium">{group.gname}</span>
 	</div>
-	
-	<!-- ШАПКА С ФИЛЬТРАМИ -->
 	<div class="flex flex-wrap items-center justify-between mb-8">
 		<h1 class="text-3xl font-bold text-white">
 			Группа <span class="text-blue-400">{group.gname}</span>
 		</h1>
-		
-		<!-- ЁБАНЫЕ КНОПКИ ФИЛЬТРАЦИИ -->
 		<div class="flex gap-2 bg-gray-800 p-1 rounded-lg border border-gray-700">
 			<button
 				onclick={() => genderFilter = 'all'}
@@ -82,13 +69,9 @@
 			</button>
 		</div>
 	</div>
-	
-	<!-- ИНФО О КОЛИЧЕСТВЕ ПОСЛЕ ФИЛЬТРА -->
 	<div class="mb-4 text-sm text-gray-400">
 		Показано: <span class="text-white font-medium">{filteredStudents.length}</span> из <span class="text-white font-medium">{group.slist.length}</span> студентов
 	</div>
-	
-	<!-- ТАБЛИЦА СТУДЕНТОВ -->
 	<div class="bg-gray-800 rounded-xl border border-gray-700 overflow-hidden">
 		<table class="w-full">
 			<thead class="bg-gray-900/70">
@@ -123,15 +106,11 @@
 			</tbody>
 		</table>
 	</div>
-	
-	<!-- ЕСЛИ НИКОГО НЕ НАШЛОСЬ -->
 	{#if filteredStudents.length === 0}
 		<div class="mt-8 p-8 text-center bg-gray-800/50 rounded-lg border border-gray-700">
 			<p class="text-gray-400 text-lg">😢 Нет студентов с таким полом</p>
 		</div>
 	{/if}
-	
-	<!-- ФОРМАТИРОВАННАЯ СТРОКА (ДЛЯ ПРЕПОДОВ) -->
 	{#if formatted}
 		<div class="mt-8 p-5 bg-gray-800/70 rounded-lg border border-gray-700">
 			<h3 class="text-sm font-medium text-gray-400 mb-2">Строка для преподов:</h3>
