@@ -1,4 +1,6 @@
 <script lang='ts'>
+    import MyButton from '$lib/components/BtnComp.svelte';
+    import MyDialog from '$lib/components/DiaComp.svelte'
     import type { PageProps } from './$types';
     import type {RollType} from './roll/+server'
 
@@ -9,6 +11,8 @@
 		number = await response.json()
 	}
     let users = $derived(data.users);
+
+    let open = $state(false);
   </script>
 
 <h1>Welcome to SvelteKit</h1>
@@ -19,6 +23,9 @@
 {/each}
 
 
+<MyButton onclick={()=> (open =! open)}/>
+{open}
+<MyDialog/>
 <p>
     <button onclick={roll}>Случайное число {number? number.val: '-'}</button>
 </p>
